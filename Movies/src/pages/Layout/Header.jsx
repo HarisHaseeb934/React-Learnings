@@ -9,7 +9,9 @@ export const Header = () => {
     <nav className="bg-gray-800">
       <div className="flex w-full max-w-7xl m-auto justify-between items-center px-5">
         <div className="w-30">
+          <NavLink to= "/">
           <img src="movies.png" alt="" className="" />
+          </NavLink>
         </div>
         <div>
           <ul className="flex gap-6 text-white">
