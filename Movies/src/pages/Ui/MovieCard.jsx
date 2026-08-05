@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom"
 
 export const MovieCard = ({Poster, imdbID, Title}) => {
     return(
-        <li className="w-full h-full flex flex-col">
+        <li className="w-[250px] h-full flex flex-col shadow-xl/70 self-center">
             <div>
                 <img src={Poster} alt="" className="w-full object-cover object-center aspect-[2/3]"/>
             </div>
