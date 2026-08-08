@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+.nav{
+    display: flex;
+    gap: 3rem;
+}
+
+@media screen and (max-width: 768px) {
+    .nav{
+        position: absolute;
+        top: 56px;
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+        text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding: 20px;
+    }
+
+    .hide{
+        display: none;
+    }
+}
