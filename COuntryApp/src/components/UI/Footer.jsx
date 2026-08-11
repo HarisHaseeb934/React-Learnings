@@ -11,13 +11,13 @@ export const Footer = () => {
         TbMailPlus: <TbMailPlus/>,
     }
   return (
-    <footer>
-      <div>
+    <footer className="w-full bg-[#66BB6A]">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-10">
         {footerApi.map((current, index) => {
           const { icon, title, details } = current;
           return (
-            <div key={index}>
-              <div>{footerIconObj[icon]}</div>
+            <div key={index} className="flex flex-col md:flex-row justify-center items-center gap-5 text-center p-3">
+              <div className="text-3xl">{footerIconObj[icon]}</div>
               <div>
                 <p>{title}</p>
                 <p>{details}</p>

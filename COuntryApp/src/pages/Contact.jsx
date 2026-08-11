@@ -5,26 +5,26 @@ export const Contact = () => {
   };
 
   return (
-    <section>
+    <section className="w-full text-center m-5">
       <h1>Contact Us</h1>
-      <div className="container">
-        <form action={handleSubmit}>
+      <div>
+        <form action={handleSubmit} className="">
           <input
             type="text"
             name="name"
             placeholder="Enter Your Name"
-            required
+            required className=""
           />
           <input
             type="email"
             name="email"
             placeholder="Enter Your Email"
-            required
+            required className=""
           />
           <textarea
             name="message"
             id="message"
-            placeholder="Enter Your Message"
+            placeholder="Enter Your Message" className=""
           ></textarea>
           <button type="submit" value="send">
             Send

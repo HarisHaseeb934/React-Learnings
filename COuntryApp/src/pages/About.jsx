@@ -2,28 +2,28 @@ import aboutCountry from "../api/aboutCountry.json";
 
 export const About = () => {
   return (
-    <section>
-      <h2>
+    <section className="w-full my-5">
+      <h2 className="text-center text-xl font-bold text-[#66BB6A]">
         Here are the Interersting Facts <br /> we're proud of
       </h2>
-      <div className="gradient-cards">
+      <div className="max-w-6xl m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {aboutCountry.map((country) => {
           const { id, countryName, capital, population, interestingFact } =
             country;
           return (
-            <div className="card" key={id}>
+            <div className="p-5 border-1 border-[#66BB6A] m-2" key={id}>
               <div className="container">
-                <p className="card-title">{countryName}</p>
+                <p className="text-center font-bold">{countryName}</p>
                 <p>
-                  <span className="card-description">Capital: </span>
+                  <span className="font-bold">Capital: </span>
                   {capital}
                 </p>
                 <p>
-                  <span className="card-description">Interresting Facts: </span>
+                  <span className="font-bold">Interresting Facts: </span>
                   {interestingFact}
                 </p>
                 <p>
-                  <span className="card-description">Population: </span>
+                  <span className="font-bold">Population: </span>
                   {population}
                 </p>
               </div>
