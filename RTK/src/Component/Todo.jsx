@@ -6,7 +6,6 @@ import { useLocalStorage } from "./localStorage";
 export const Todo = () => {
   const [input, setInput] = useState("");
   const [store, setLocal, setlocalupdate, clearAllLocal] = useLocalStorage('todo' ,[]);
-  const { tasks } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
   function handleSubmit(e) {
@@ -14,7 +13,6 @@ export const Todo = () => {
     if (input.length === 0) return;
     dispatch(addTask(input));
     setLocal(input);
-    console.log(input);
     setInput("");
   }
 
@@ -40,11 +38,11 @@ export const Todo = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Enter Your Tasks"
-            className=" p-2 outline-none border w-[230px] sm:w-sm"
+            className=" p-2 outline-none border w-57.5 sm:w-sm"
           />
           <button
             type="submit"
-            className="p-[9px] bg-black text-white rounded-r-2xl"
+            className="p-2.25 bg-black text-white rounded-r-2xl"
           >
             Add
           </button>
@@ -60,7 +58,7 @@ export const Todo = () => {
             return (
               <li
                 key={index}
-                className="flex inset-shadow-sm/30 rounded-2xl w-[230px] sm:w-sm mt-5"
+                className="flex inset-shadow-sm/30 rounded-2xl w-57.5 sm:w-sm mt-5"
               >
                 <p className="text-start w-xs p-2">{curr}</p>
                 <button
