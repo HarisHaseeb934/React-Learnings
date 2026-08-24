@@ -15,12 +15,12 @@ const Header = () => {
   return (
     <header className="w-full p-3 shadow-sm">
       <div className="w-full max-w-7xl m-auto flex justify-between items-center gap-5 relative">
-        <div className="flex items-center justify-center">
+        <NavLink to={"/"} className="flex items-center justify-center">
           <img src="Logo.png" alt="" width="50px" />
           <h1 className="sm:text-lg md:text-2xl font-bold">ApexStore</h1>
-        </div>
+        </NavLink>
         <form
-          className={`${isVisible ? "nav hide" : "nav"} bg-slate-100 rounded-2xl p-2 md:w-md shadow-md`}
+          className={`${isVisible ? "nav" : "nav hide"} bg-slate-100 rounded-2xl p-2 md:w-md shadow-md`}
         >
           <input
             type="text"
@@ -33,7 +33,7 @@ const Header = () => {
           </button>
         </form>
 
-        <div className="flex items-center text-2xl gap-3 md:gap-5">
+        <div className="flex items-center text-2xl gap-4 md:gap-6">
           <button onClick={handleSerachVisibility}>
             <IoIosSearch className="text-xl md:hidden" />
           </button>
