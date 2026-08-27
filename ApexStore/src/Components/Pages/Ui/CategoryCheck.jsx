@@ -4,25 +4,22 @@ import { RiArrowDropUpLine } from "react-icons/ri";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useState } from "react";
 
-const CategoryCheck = () => {
+const CategoryCheck = ({onChange}) => {
   const [filterCategories, setFilterCategories] = useState([]);
-  const [isHide, setHide] = useState(false);
+  const [isHide, setHide] = useState(true);
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
-  console.log(categories);
 
   function handleCategoryChange(e) {
-    const { value } = e.target;
-    if (e.target.checked) {
-      setFilterCategories((prev) => [...prev, value]);
-    } else {
-      setFilterCategories((prev) => prev.filter((item) => item != value));
-    }
+    const { value, checked } = e.target;
+    setFilterCategories(prev => {
+      const updated = checked ? [...prev, value] : prev.filter(item => item !== value)
+      onChange(updated);
+      return updated;
+    })
   }
-
-  console.log(filterCategories);
 
   return (
     <div className="py-3 flex flex-col gap-3">
@@ -37,8 +34,8 @@ const CategoryCheck = () => {
           <RiArrowDropUpLine className="text-2xl" />
         )}
       </button>
-      {isHide && (
-        <ul className="flex flex-col gap-2 transition-all transition-discrete duration-300 translate-y 0 opacity-100 starting: starting:opacity-0 starting:-translate-y-2">
+      {!isHide && (
+        <ul className="flex flex-col gap-2 transition-all transition-discrete duration-300 translate-y 0 opacity-100 starting:opacity-0 starting:-translate-y-2">
           {categories?.map((item, index) => {
             return (
               <li key={index} className="flex gap-2">

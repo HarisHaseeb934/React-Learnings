@@ -2,12 +2,13 @@ import { useState } from "react";
 import { RiArrowDropUpLine } from "react-icons/ri";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
-const PriceRange = () => {
+const PriceRange = ({onChange}) => {
   const [isHide, setHide] = useState(true);
   const [range, setRange] = useState(500);
 
   function handleRange(e) {
-    setRange(e.target.value);
+    setRange(Number(e.target.value));
+    onChange?.(Number(e.target.value))
   }
 
   console.log(range);
@@ -25,8 +26,8 @@ const PriceRange = () => {
           <RiArrowDropUpLine className="text-2xl" />
         )}
       </button>
-      {isHide && (
-        <div className="transition-all transition-discrete duration-300 translate-y 0 opacity-100 starting: starting:opacity-0 starting:-translate-y-2">
+      {!isHide && (
+        <div className="transition-all transition-discrete duration-300 translate-y-0 opacity-100 starting: starting:opacity-0 starting:-translate-y-2">
           <div className="flex">
             <div>1$</div>
             -

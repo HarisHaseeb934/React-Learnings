@@ -3,7 +3,7 @@ import { RiArrowDropUpLine } from "react-icons/ri";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import StarRating from "./StarRating";
 
-const Rating = () => {
+const Rating = ({onChange}) => {
   const [isHide, setHide] = useState(true);
   return (
     <div className="py-3">
@@ -18,10 +18,10 @@ const Rating = () => {
           <RiArrowDropUpLine className="text-2xl" />
         )}
       </button>
-      {isHide && (
+    {!isHide && (
         <div className="transition transition-discrete translate-y-0 opacity-100 starting:-translate-y-2 starting:opacity-0">
             <div>
-                <StarRating/>
+                <StarRating initialRating={5} onChange={(value) => onChange(value)}/>
             </div>
         </div>
       )}
