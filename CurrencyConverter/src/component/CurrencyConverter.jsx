@@ -4,36 +4,34 @@ import { getCurrency } from "../api/axiosInstance";
 
 export const CurrencyConverter = () => {
   const [input, setInput] = useState({ amount: 0, from: "PKR", to: "USD" });
-  const [currency, setCurrency] = useState("");
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  // const [currency, setCurrency] = useState(null);
 
-  //   const { data, isFetching, isPending, isError, error } = useQuery({
-  //     queryKey: ["curreny"],
-  //     queryFn: () => getCurrency(),
-  //     enabled: s
-  //   });
+    const { data, isFetching, isPending, isError, error, refetch } = useQuery({
+      queryKey: ["curreny"],
+      queryFn: () => getCurrency(input),
+      // enabled: false,
+      enabled: false,
+    });
 
-  const converter = async (input) => {
-    setLoading(true);
-    // console.log(input)
-    try {
-      const res = await getCurrency(input);
-      if (res.status === 200) {
-        console.log(res.data);
-        setCurrency(res.data);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      setError(true);
-    }
-  };
+  // const converter = async (input) => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await getCurrency(input);
+  //     if (res.status === 200) {
+  //       console.log(res.data);
+  //       setCurrency(res.data);
+  //       setLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //     setError(true);
+  //   }
+  // };
 
   function handleSubmit(e) {
     e.preventDefault();
-    converter(input);
+    refetch();
   }
 
   function handleChange(e) {
@@ -97,7 +95,7 @@ export const CurrencyConverter = () => {
 
         {currency && (
           <div>
-            {input.amount} {input.from} = {currency.conversion_result} {input.to}
+            {input.amount} {input.from} = {data.conversion_result} {input.to}
           </div>
         )}
       </div>
