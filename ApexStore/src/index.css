@@ -9,23 +9,14 @@ html {
   align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-  .nav {
-    position: absolute;
-    top: 90px;
-    width: 100%;
-  }
-  .hide {
-    display: none;
-  }
+@media screen and (max-width: 768px){
+    .nav{
+        position: absolute;
+        top: 50px;
+        width: 100%;
+    }
+    .hide{
+        display: none;
+    }
 }
 
-
-.star .active svg{
-  fill: yellow;
-  stroke: red;
-}
-.star .hovered svg{
-  fill: blue;
-  stroke: green;
-}
