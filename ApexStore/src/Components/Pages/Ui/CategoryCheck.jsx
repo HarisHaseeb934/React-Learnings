@@ -24,7 +24,7 @@ const CategoryCheck = ({onChange}) => {
   return (
     <div className="py-3 flex flex-col gap-3">
       <button
-        className="text-[#2D3447] font-bold text-lg flex items-center justify-between w-40"
+        className="text-[#2D3447] font-bold text-lg flex items-center justify-between w-full md:w-40"
         onClick={() => setHide((prev) => !prev)}
       >
         Category

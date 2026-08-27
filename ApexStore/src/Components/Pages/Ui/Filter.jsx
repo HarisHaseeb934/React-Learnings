@@ -1,16 +1,31 @@
-import CategoryCheck from "./CategoryCheck"
-import PriceRange from "./PriceRange"
-import Rating from "./Rating"
+import { useState } from "react";
+import CategoryCheck from "./CategoryCheck";
+import PriceRange from "./PriceRange";
+import Rating from "./Rating";
+import { CiFilter } from "react-icons/ci";
 
-const Filter = ({setCategory, setPriceRange, setRating}) => {
+const Filter = ({ setCategory, setPriceRange, setRating }) => {
+  const [isHide, setHide] = useState(false);
   return (
-    <section className="bg-[#F2F3FF] p-5 rounded-2xl">
-        <h1 className="text-3xl font-bold pb-2 border-b border-slate-200">Filter</h1>
-        <CategoryCheck onChange = {(value) => setCategory(value)}/>
-        <PriceRange onChange = {(value) => setPriceRange(value)}/>
-        <Rating onChange = {(value) => setRating(value)}/>
-    </section>
-  )
-}
+    <>
+      <button
+        onClick={() => setHide((prev) => !prev)}
+        className="p-2 md:hidden"
+      >
+        <CiFilter className="text-2xl" />{" "}
+      </button>
+      <section
+        className={`bg-[#F2F3FF] p-5 rounded-2xl ${isHide ? "block" : "hidden"} md:block transition-discrete starting:opacity-0 starting:-translate-1 opacity-100 translate-0 transition-all`}
+      >
+        <h1 className="text-3xl font-bold pb-2 border-b border-slate-200 hidden md:block">
+          Filter
+        </h1>
+        <CategoryCheck onChange={(value) => setCategory(value)} />
+        <PriceRange onChange={(value) => setPriceRange(value)} />
+        <Rating onChange={(value) => setRating(value)} />
+      </section>
+    </>
+  );
+};
 
-export default Filter
+export default Filter;

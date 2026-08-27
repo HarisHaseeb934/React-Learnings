@@ -4,6 +4,7 @@ import AppLayout from "./Components/Pages/Layout/AppLayout";
 import ErrorPage from "./Components/Pages/ErrorPage";
 import Home from "./Components/Pages/Home";
 import Shop from "./Components/Pages/Shop";
+import ProductDetail from "./Components/Pages/Ui/ProductDetail";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <Shop/>,
+      },
+      {
+        path: "/shop/:product",
+        element: <ProductDetail/>,
       },
     ],
   },

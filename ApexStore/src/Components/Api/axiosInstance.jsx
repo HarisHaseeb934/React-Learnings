@@ -8,3 +8,8 @@ export const getCategories = async() => {
     const response = await api.get("/products/categories")
     return response.data 
 }
+
+export const getProducts = async(skip) => {
+    const response = await api.get(`/products?limit=10&skip=${skip}`);
+    return response;
+}
