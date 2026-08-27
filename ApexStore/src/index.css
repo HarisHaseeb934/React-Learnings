@@ -1,18 +1,22 @@
 @import "tailwindcss";
 
-.nav{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html {
+  scrollbar-gutter: stable; 
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px){
     .nav{
         position: absolute;
-        top:60px;
+        top: 65px;
         width: 100%;
     }
     .hide{
         display: none;
     }
 }
+
