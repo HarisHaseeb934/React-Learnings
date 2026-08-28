@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Star from "./Star";
 
 const StarRating = ({
@@ -9,6 +9,10 @@ const StarRating = ({
 }) => {
   const [rating, setRating] = useState(initialRating);
   const [hoverRating, setHoverRating] = useState(null);
+
+  useEffect(() => {
+    setRating(initialRating);
+  }, [initialRating]);
 
   const displayValue = hoverRating !== null ? hoverRating : rating;
   const filledColor = (displayValue / maxRating) * 100;

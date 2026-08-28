@@ -30,12 +30,12 @@ const ProductCard = ({
         </button>
       </div>
       <div className="p-3 flex flex-col gap-1">
-        <div className="text-[#7A788A] md:text-xs font-semibold">Brand</div>
+        <div className="text-[#7A788A] md:text-xs font-semibold">{brand}</div>
         <div className="group-hover:text-blue-600 font-semibold text-md">
           {title}
         </div>
-        <div className="flex gap-1">
-          <Star className={`text-amber-900`} w={3} />
+        <div className="flex gap-1 items-center">
+          <Star className={`text-amber-900`} />
           <span className="text-[12px] md:text-[14px] font-semibold">
             {rating}
           </span>

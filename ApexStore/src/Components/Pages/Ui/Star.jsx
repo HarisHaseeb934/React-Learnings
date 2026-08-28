@@ -1,10 +1,14 @@
-const Star = ({ className = 'text-gray-300', w = 6, h = 6}) => {
+const Star = ({ className = 'text-gray-300', w = 24, h = 24}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`w-${w} h-${h} flex-shrink-0 ${className}`}
+      style={{
+        width: `${w}px`,
+        height: `${h}px`,
+      }}
+      className={`flex-shrink-0 ${className}`}
     >
       <path
         fillRule="evenodd"
