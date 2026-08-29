@@ -20,7 +20,7 @@ const Filter = ({ setCategory, setPriceRange, setRating }) => {
         <h1 className="text-3xl font-bold pb-2 border-b border-slate-200 hidden md:block">
           Filter
         </h1>
-        <CategoryCheck onChange={(value) => setCategory(value)} />
+        {setCategory && <CategoryCheck onChange={(value) => setCategory(value)} />}
         <PriceRange onChange={(value) => setPriceRange(value)} />
         <Rating onChange={(value) => setRating(value)} />
       </section>

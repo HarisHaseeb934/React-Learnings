@@ -6,13 +6,14 @@ const StarRating = ({
   maxRating = 5,
   readOnly = false,
   onChange,
+  size = 24,
 }) => {
   const [rating, setRating] = useState(initialRating);
   const [hoverRating, setHoverRating] = useState(null);
 
-  useEffect(() => {
-    setRating(initialRating);
-  }, [initialRating]);
+  // useEffect(() => {
+  //   setRating(initialRating);
+  // }, [initialRating]);
 
   const displayValue = hoverRating !== null ? hoverRating : rating;
   const filledColor = (displayValue / maxRating) * 100;
@@ -57,7 +58,7 @@ const StarRating = ({
     >
       <div className="pointer-events-none flex">
         {Array.from({ length: maxRating }).map((_, index) => {
-          return <Star key={`grey-${index}`} />;
+          return <Star key={`grey-${index}`} size = {size}/>;
         })}
       </div>
       <div
@@ -67,7 +68,7 @@ const StarRating = ({
         }}
       >
         {Array.from({ length: maxRating }).map((_, index) => {
-          return <Star key={`gold-${index}`} className={"text-amber-400"} />;
+          return <Star key={`gold-${index}`} className={"text-amber-400"} size = {size}/>;
         })}
       </div>
     </button>

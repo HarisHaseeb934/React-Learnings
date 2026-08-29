@@ -1,22 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { FiTruck } from "react-icons/fi";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { MdOutlineAssignmentReturn } from "react-icons/md";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import StarRating from "./StarRating";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getProduct } from "../../Api/axiosInstance";
 
 const ProductDetail = () => {
-  const images = [
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB2hVmb0Zn5Fndqk61L55mn0PNGcPV7r57t3mAlHCEaBXiwDU-_9NoE5qAeihaT6h_R6Hko394tCcVXP5nFWhZ-ahJw94kUjU65D_OlqC9T4HvJwr2UGglCmKhQOzQE9kW7ylHQl4fNHgK5pVITDjxX5mXYeVrk-idaXwCswrHRDHOuNqqsC_1flm38qE02Dl1y3amrBW9CxSZ9fpdohdVRiI38qfSAw7VZwM_Um2-f8UnP94vDquLa",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuA0eB8-v0T8C0v8Q1G4v08J_R1O5p04z3M7A31Y5j4b6C_10fL4kY9jX4y4t05J0v8k9w04",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB3k84j0-91v05kY48z-75618_9L08J-64kY9jX4y4t05J0v8k9w04",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuC1k094-11v05kY48z-75618_9L08J-64kY9jX4y4t05J0v8k9w04",
-  ];
-  const [selectedImg, setSelectedImg] = useState(images[0]);
+  const { id } = useParams();
+
+  const [isReview, setIsReviews] = useState(true);
+
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => getProduct(id),
+  });
+
+  useEffect(() => {
+    setSelectedImg(product?.images[0]);
+  }, [product?.images]);
+
+  console.log(product);
+  const [selectedImg, setSelectedImg] = useState();
 
   return (
-    <section className="w-full bg-slate-50/50 py-10 px-4">
+    <section className="w-full bg-slate-50/50 py-10 px-4 flex flex-col gap-20">
       <div className="max-w-6xl w-full m-auto flex flex-col md:flex-row gap-10">
         <div className="w-full md:w-1/2 flex flex-col gap-4">
           <div className="w-full aspect-[4/5] transition-all cursor-zoom-in group overflow-hidden rounded-xl">
@@ -27,9 +43,10 @@ const ProductDetail = () => {
             />
           </div>
           <div className="flex gap-2">
-            {images.map((img, index) => {
+            {product?.images.map((img, index) => {
               return (
                 <button
+                  key={index}
                   onClick={() => setSelectedImg(img)}
                   className={`overflow-hiddden aspect-square size-20 rounded-xl  ${selectedImg === img ? "border-indigo-500 border" : "opacity-80 hover:opacity-100"}`}
                 >
@@ -45,51 +62,88 @@ const ProductDetail = () => {
         </div>
 
         <div className="w-full md:w-1/2">
-          <Detail />
+          <Detail {...product} />
         </div>
       </div>
 
       <div className="max-w-6xl w-full m-auto flex flex-col">
-        <Reviews />
+        <div className="flex gap-5">
+          <button
+            className={`flex items-center gap-5 p-2 ${isReview ? "bg-blue-500 text-white font-medium rounded-2xl" : ""}`}
+            onClick={() => setIsReviews((prev) => !prev)}
+          >
+            <span className="text-xl font-light text-slate-700 font-semibold">
+              Reviews
+            </span>
+            <span className={`text-sm font-light bg-sky-100 size-6 flex items-center justify-center rounded-full ${isReview ? "text-black" : ""}`}>
+              {product?.reviews.length}
+            </span>
+          </button>
+          <button
+            className={`flex items-center gap-5 p-2 ${isReview ? "" : "bg-blue-500 text-white font-medium rounded-2xl"}`}
+            onClick={() => setIsReviews((prev) => !prev)}
+          >
+            Specification
+          </button>
+        </div>
+
+        {isReview ? (
+          <Reviews reviews={product?.reviews} />
+        ) : (
+          <Specification {...product} />
+        )}
       </div>
     </section>
   );
 };
 
-const Detail = () => {
+const Detail = ({
+  brand,
+  rating,
+  reviews,
+  title,
+  description,
+  price,
+  discountPercentage,
+  availabilityStatus,
+  shippingInformation,
+  warrantyInformation,
+  returnPolicy,
+}) => {
   const [quantity, setQuantity] = useState(1);
 
+  function original(price, discount) {
+    const sub = 100 - discount;
+    const decimal = sub / 100;
+    return (price / decimal).toFixed(2);
+  }
   return (
     <div className="flex flex-col h-full gap-10">
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-indigo-600 font-bold text-xs">Apex Labs</span>
+          <span className="text-indigo-600 font-bold text-xs">{brand}</span>
           <span className="text-slate-300">•</span>
-          <StarRating initialRating={4.8} readOnly={true} />
-          <span className="font-semibold text-slate-800">4.8</span>
-          <span className="text-slate-500">(120 reviews)</span>
+          {rating && <StarRating initialRating={rating} readOnly={true} />}
+          <span className="font-semibold text-slate-800">{rating}</span>
+          <span className="text-slate-500">({reviews?.length})</span>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900">
-          Quantum X Pro Horizon Series
+          {title}
         </h1>
-        <p className="text-slate-600 text-sm">
-          Experience unparalleled precision and aerial stability with the next
-          generation of professional-grade imaging equipment. Engineered for
-          creators.
-        </p>
+        <p className="text-slate-600 text-sm">{description}</p>
 
         <div className="flex items-center gap-3">
           <span className="text-3xl font-extrabold text-slate-900">
-            $599.00
+            ${price}
           </span>
           <span className="text-xl font-medium text-slate-400 line-through">
-            $749.00
+            ${original(price, discountPercentage)}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-xs font-semibold text-rose-600">
-          Stock
+          {availabilityStatus}
         </div>
       </div>
 
@@ -128,19 +182,19 @@ const Detail = () => {
         <div className="flex items-center gap-2.5">
           <FiTruck className="text-indigo-600 text-lg" />
           <span className="text-xs text-slate-600 font-medium">
-            Free 2-Day Shipping
+            {shippingInformation}
           </span>
         </div>
         <div className="flex items-center gap-2.5">
           <IoShieldCheckmarkOutline className="text-indigo-600 text-lg" />
           <span className="text-xs text-slate-600 font-medium">
-            2 Year Warranty
+            {warrantyInformation}
           </span>
         </div>
         <div className="flex items-center gap-2.5">
           <MdOutlineAssignmentReturn className="text-indigo-600 text-lg" />
           <span className="text-xs text-slate-600 font-medium">
-            30-Day Returns
+            {returnPolicy}
           </span>
         </div>
         <div className="flex items-center gap-2.5">
@@ -154,66 +208,55 @@ const Detail = () => {
   );
 };
 
-const Reviews = () => {
+const Reviews = ({ reviews }) => {
   return (
-    <div>
-      <h1 className="text-xl font-bold">Reviews 120</h1>
-      <ul className="divide-y-2">
-        <li className="flex flex-col gap-3">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <div className="bg-slate-300 flex items-center size-10 font-bold justify-center rounded-full ">E</div>
-              <div>
-                <p className="text-xs text-slate-500">Name</p>
-                <p className="text-xs text-slate-500">Email</p>
-              </div>
-            </div>
-            <div>
-              <StarRating initialRating={4}/>
-            </div>
-          </div>
-
-          <div className="p-3">
-            comment
-          </div>
-        </li>
-        <li className="flex flex-col gap-3">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <div className="bg-slate-300 flex items-center size-10 font-bold justify-center rounded-full ">E</div>
-              <div>
-                <p className="text-xs text-slate-500">Name</p>
-                <p className="text-xs text-slate-500">Email</p>
-              </div>
-            </div>
-            <div>
-              <StarRating initialRating={4}/>
-            </div>
-          </div>
-
-          <div className="p-3">
-            comment
-          </div>
-        </li>
-        <li className="flex flex-col gap-3">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <div className="bg-slate-300 flex items-center size-10 font-bold justify-center rounded-full ">E</div>
-              <div>
-                <p className="text-xs text-slate-500">Name</p>
-                <p className="text-xs text-slate-500">Email</p>
-              </div>
-            </div>
-            <div>
-              <StarRating initialRating={4}/>
-            </div>
-          </div>
-
-          <div className="p-3">
-            comment
-          </div>
-        </li>
+    <div className="flex flex-col gap-5 mt-4">
+      <ul className="flex flex-col gap-3">
+        {reviews &&
+          reviews.map((review, index) => {
+            const { rating, comment, date, reviewerEmail, reviewerName } =
+              review;
+            return (
+              <li
+                className="flex flex-col gap-1 inset-shadow-sm/30 rounded-2xl p-2"
+                key={index}
+              >
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-slate-400 flex items-center size-10 font-bold justify-center rounded-full ">
+                      {reviewerName.slice(0, 1)}
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">{reviewerName}</p>
+                      <p className="text-xs text-slate-500">{reviewerEmail}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <StarRating initialRating={rating} size={16} />
+                  </div>
+                </div>
+                <div className="p-3 text-[14px]">{comment}</div>
+                <div className="p-3 text-[10px]">{date.split("T")[0]}</div>
+              </li>
+            );
+          })}
       </ul>
+    </div>
+  );
+};
+
+const Specification = ({ brand, category, description, meta, weight }) => {
+  return (
+    <div className="flex items-center justify-between flex-col md:flex-row  mt-4">
+      <div className="max-w-xl w-full justify-between">
+        <h1><span className="font-bold">Brand: </span>{brand}</h1>
+        <p><span className="font-bold">Category: </span>{category}</p>
+        <p><span className="font-bold">Description: </span>{description}</p>
+        <p><span className="font-bold">Weight: </span>{weight}</p>
+      </div>
+      <div className="aspect-1/1">
+        <img src={meta?.qrCode} alt="" className="w-25"/>
+      </div>
     </div>
   );
 };
