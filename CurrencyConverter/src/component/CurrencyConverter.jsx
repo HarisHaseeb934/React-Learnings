@@ -6,7 +6,7 @@ export const CurrencyConverter = () => {
   const [input, setInput] = useState({ amount: 0, from: "PKR", to: "USD" });
   // const [currency, setCurrency] = useState(null);
 
-    const { data, isFetching, isPending, isError, error, refetch } = useQuery({
+    const { data: currency, isFetching, isPending, isError, error, refetch } = useQuery({
       queryKey: ["curreny"],
       queryFn: () => getCurrency(input),
       // enabled: false,
@@ -41,11 +41,9 @@ export const CurrencyConverter = () => {
 
   return (
     <section className="w-full h-screen bg-black p-2">
-      <div className="w-full max-w-lg m-auto text-center bg-white flex flex-col p-5 rounded-3xl">
+      <div className="w-full max-w-lg mx-auto my-10 text-center bg-white flex flex-col px-15 py-10 rounded-3xl">
         <h1 className="font-bold text-3xl">Currency Converter</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-5">
-          <div className="">
-            <label htmlFor="amount">Amount: </label>
             <input
               type="number"
               name="amount"
@@ -53,9 +51,8 @@ export const CurrencyConverter = () => {
               placeholder="Enter Amount"
               value={input.amount}
               onChange={handleChange}
-              className="p-2 outline-none border rounded-3xl"
+              className="p-2 outline-none bg-slate-300 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
-          </div>
           <div className="flex justify-evenly items-center">
             <label>
               From:
@@ -63,6 +60,7 @@ export const CurrencyConverter = () => {
                 name="from"
                 id="from"
                 onChange={handleChange}
+                className="outline-none"
               >
                 <option value="PKR">PKR</option>
                 <option value="EUR">EUR</option>
@@ -78,6 +76,7 @@ export const CurrencyConverter = () => {
                 name="to"
                 id="to"
                 onChange={handleChange}
+                className="outline-none"
               >
                 <option value="PKR">USD</option>
                 <option value="EUR">EUR</option>

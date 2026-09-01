@@ -13,17 +13,17 @@ export const About = () => {
           return (
             <div className="p-5 border-1 border-[#66BB6A] m-2" key={id}>
               <div className="container">
-                <p className="text-center font-bold">{countryName}</p>
+                <p className="text-center font-bold text-[#66BB6A]">{countryName}</p>
                 <p>
-                  <span className="font-bold">Capital: </span>
+                  <span className="font-bold text-green-800">Capital: </span>
                   {capital}
                 </p>
                 <p>
-                  <span className="font-bold">Interresting Facts: </span>
+                  <span className="font-bold text-green-800">Interresting Facts: </span>
                   {interestingFact}
                 </p>
                 <p>
-                  <span className="font-bold">Population: </span>
+                  <span className="font-bold text-green-800">Population: </span>
                   {population}
                 </p>
               </div>

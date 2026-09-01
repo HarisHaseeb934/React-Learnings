@@ -7,7 +7,7 @@ export const Header = () => {
   }
   return (
     <header className="w-full bg-[#66BB6A]">
-      <div className="max-w-4xl w-full m-auto p-5">
+      <div className="max-w-6xl w-full m-auto p-5">
         <div className="flex justify-between items-center h-15">
           <div className="text-xl font-bold text-[#E8F5E9]">
             <NavLink to={"/"}>
