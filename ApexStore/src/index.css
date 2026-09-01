@@ -9,6 +9,7 @@ html {
   align-items: center;
 }
 
+
 @media screen and (max-width: 768px){
     .nav{
         position: absolute;
